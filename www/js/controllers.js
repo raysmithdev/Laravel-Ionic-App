@@ -1,24 +1,10 @@
 angular.module('starter.controllers', [])
 
-.controller('homeCtrl', function($scope, ajax) {
-
-  ajax.get('http://localhost:8000/users')
-    .success(function(resp) {
-      console.log(resp);
-      return false;
-
-      if(resp.success) {
-        $state.go('/tab.dash')
-      }
-      else
-      {
-        $scope.errorRegistering = true;
-      }
-  });
+.controller('homeCtrl', function($scope, ajax, $ionicLoading) {
 
 })
 
-.controller('LoginCtrl', function($scope, Http, $ionicPopup, $state) {
+.controller('LoginCtrl', function($scope, ajax, $ionicPopup, $state) {
     $scope.data = {};
 
     $scope.signIn = function(data)
@@ -46,29 +32,43 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('RegisterCtrl', function($scope, ajax, $ionicPopup, $state) {
+.controller('RegisterCtrl', function($scope, ajax, $ionicPopup, $state, $ionicLoading) {
 
     $scope.signUp = function(data, isValid) {
 
-		if (isValid) {
+  		if (isValid) {
 
-			ajax.post(data, 'http://localhost:8888/ionic-api/RegisterController/saveUser')
-				.success(function(resp) {
-					console.log(resp);
+        $ionicLoading.show();
 
-					if(resp.success) {
-						$state.go('/tab.dash')
-					}
-					else
-					{
-						$scope.errorRegistering = true;
-					}
-			});
-		}
-	    	$scope.loading = true;
+        // Check if username exists
 
 
-	    console.log(data);
+        ajax.post(data, 'http://localhost:8000/check-if-username-exists')
+          .success(function(resp) {
+
+            // Username already taken
+            if (resp.success)
+            {
+              $scope.usernameExists = true;
+              $scope.data = {};
+              $ionicLoading.hide();
+            }
+            else {
+                ajax.post(data, 'http://localhost:8000/register-user')
+                  .success(function(resp) {
+
+                    if(resp.success) {
+                      $ionicLoading.hide();
+                      $state.go('tab.dash');
+                    }
+                    else
+                    {
+                      $scope.errorRegistering = true;
+                    }
+                });
+            }
+          });
+  		}
     }
 
 })

@@ -8,7 +8,7 @@ angular.module('starter.services', [])
         get : function(url) {
 
             return $http.get(url);
-            
+
         },
 
         post : function(data, url) {
@@ -16,7 +16,7 @@ angular.module('starter.services', [])
             return $http({
                 method: 'POST',
                 url: url,
-                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                // headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') },
                 data: data
             });
         },

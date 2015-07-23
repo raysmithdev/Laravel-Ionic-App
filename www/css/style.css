@@ -11,8 +11,12 @@ body {
 	background: #434A54;
 }
 
+.error-msg {
+  color: red;
+}
 
-.has-error {  
+
+.has-error {
 	background: red;
   border-left: 2px solid red;
   border-right: 2px solid red;
