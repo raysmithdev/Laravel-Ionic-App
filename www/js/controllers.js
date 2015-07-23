@@ -4,31 +4,27 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('LoginCtrl', function($scope, ajax, $ionicPopup, $state) {
-    $scope.data = {};
+.controller('LoginCtrl', function($scope, ajax, $ionicLoading, $state) {
 
-    $scope.signIn = function(data)
+    $scope.signIn = function(data, isValid)
     {
-	    console.log('Clicked!');
-	    if (data.username === '') {
+	     if (isValid)
+       {
+         $ionicLoading.show();
+         ajax.post(data, 'http://localhost:8000/login-user')
+           .success(function(resp) {
 
-		    $scope.validationError = true;
-		    console.log('Error');
-	    }
-    }
+             if (resp.success)
+             {
+               $ionicLoading.hide();
+               $state.go('tab.dash');
+             }
+             else {
+               $scope.loginError = true;
+             }
 
-    $scope.submitted = true;
-
-
-    $scope.login = function() {
-        LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-            $state.go('tab.dash');
-        }).error(function(data) {
-            var alertPopup = $ionicPopup.alert({
-                title: 'Login failed!',
-                template: 'Please check your credentials!'
-            });
-        });
+           });
+      }
     }
 })
 
@@ -73,18 +69,6 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('DashCtrl', function($scope) {
-
-	$scope.loginLoading = true;
-
-
-
-})
-
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
