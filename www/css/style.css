@@ -1,0 +1,23 @@
+@font-face {
+    font-family: GothamBook;
+    src: url(../fonts/GothamRnd-Book.otf);
+}
+
+body {
+	font-family: 'GothamBook';
+}
+
+.bg-green {
+	background: #434A54;
+}
+
+
+.has-error {  
+	background: red;
+  border-left: 2px solid red;
+  border-right: 2px solid red;
+}
+
+/*
+	Homepage
+*/

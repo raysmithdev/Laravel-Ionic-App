@@ -1,0 +1,30 @@
+<ion-view view-title="Login" name="login-view">
+
+  <ion-content class="padding">
+  	
+  		
+  	  <form name="signinForm" novalidate="" ng-submit="signIn(signinForm)"> 
+	  	  
+			<div class="list list-inset">
+			
+				<label class="item item-input">
+			
+					<input type="text" name="username" placeholder="Username" ng-model="data.username" ng-class="{'has-error': signinForm.username.$error}" required>
+					
+				</label>
+			
+				<label class="item item-input">
+			
+					<input type="password" placeholder="Password" ng-model="data.password">
+			
+				</label>
+			
+			</div>
+			
+			<button ladda="loading" class="button button-block button-calm" ng-click="loginUser(data)">Login</button>
+			
+  	  </form>
+      
+  </ion-content>
+  
+</ion-view>

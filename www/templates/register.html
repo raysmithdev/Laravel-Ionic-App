@@ -1,0 +1,30 @@
+<ion-view view-title="Register" name="register-view">
+
+  <ion-content class="padding">
+  	
+  		
+  	  <form name="form" novalidate="" ng-submit="signUp(data, form.$valid)"> 
+	  	  
+			<div class="list list-inset">
+			
+				<label class="item item-input">
+			
+					<input type="text" name="username" placeholder="Username" ng-model="data.username" ng-class="{'has-error': form.username.$error}" required>
+					
+				</label>
+			
+				<label class="item item-input">
+			
+					<input type="password" placeholder="Password" ng-model="data.password">
+			
+				</label>
+			
+			</div>
+			
+			<button ladda="loading" class="button button-block button-calm">Submit</button>
+			
+  	  </form>
+      
+  </ion-content>
+  
+</ion-view>
